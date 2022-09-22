@@ -7,9 +7,9 @@ output: html_document
 
 # Tache  1: Reflection
 
-Écrire vos reflexions ici
+Selon les lectures proposées on constate que la question : comment représenter de la meilleure façon l’incertitude, n’a pas encore été répondu. Il y a plusieurs façons proposées de représenter l’incertitude, mais aucune manière ne permet au public en général de comprendre réellement ce que l’incertitude représente. Même chez les spécialistes, l’incertitude est parfois traitée avec peu de rigueur comme dans le cas des cônes des tornades où l’incertitude est représentée d’une manière qui confond le public. On pense que le cône représente la grosseur que la tornade va atteindre et non l’ensemble des trajectoires possible. Il y a aussi le cas de la fameuse aiguille sensée représenté l’incertitude entourant les prédictions électorales. Les gens ont pensé que les résultats variait beaucoup, car l’aiguille bougeait beaucoup alors qu’en réalité les résultats ont été clair assez vite. 
 
-# Tâche 2 : Visualiser l'incertitude avec gapminder
+# Tâche 2: Visualiser l'incertitude avec gapminder
 
 Pour cet exercice, vous allez revoir les données de Hans Rosling sur la santé et la richesse. Installez le package **gapminder** si vous ne l'avez pas déjà fait. Installez également les packages **ggridges** et **gghalves**.
 
@@ -26,11 +26,20 @@ Faites un histogramme du PIB *enregistré* par habitant pour 1997 uniquement, su
 
 ```{r filter-gapminder-1997}
 # Créer un jeu de données filtré
+data_gdp <- gapminder::gapminder
+data_1997 <- data_gdp %>% 
+  filter(year == 1997)
 ```
 
 ```{r plot-histogram}
 # Ajoutez un histogramme ici. Vous voudrez probablement remplir et facetter.
 # Vous devrez également ajouter scale_x_log10()
+ggplot(data_1997, mapping = aes(gdpPercap)) +
+  geom_histogram(color = "white", binwidth = 0.1, boundary = 1000) +
+  scale_x_log10() 
+  # facet_grid(cols = vars(continent)) +
+  # labs(title = "")
+
 ```
 
 
