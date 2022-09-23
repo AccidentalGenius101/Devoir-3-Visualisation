@@ -37,7 +37,7 @@ space_dogs <- space_dogs_raw %>%
 
 Il y a en fait des tendances intéressantes ici! Les chiennes étaient beaucoup moins susceptibles de mourir et effectuaient beaucoup plus de vols que leurs homologues masculins, mais c'est en partie parce que l'URSS n'utilisait presque que des chiens mâles de 1951 à 1954, de sorte que ces chiens ont dû faire face aux premiers prototypes de fusées et de capsules.
 
-```{r summarize-data}
+```{r summarize-data, warning=FALSE, message=FALSE}
 # On résume les données par fate et gender
 space_dogs_summarized <- space_dogs %>% 
   group_by(Fate_binary, Gender) %>% 
@@ -51,7 +51,7 @@ space_dogs_summarized
 
 Mais les tendances n'ont pas d'importance ici. Ce qui compte, ce sont les graphiques hideux. Changez les couleurs, modifiez le thème, ajoutez des étiquettes, etc. et rendez cela moche. Vous pouvez laisser le `geom_pointrange ()` tel quel, ou vous pouvez également le modifier (ou même le changer en un graphique à barres ou un graphique à en tarte ou une heatmap ou autre chose si vous vous sentez à la hauteur).
 
-```{r ugly-plot}
+```{r ugly-plot, warning=FALSE, message=FALSE}
 
 ugly_plot <- ggplot(data = space_dogs_summarized,
                     mapping = aes(x = "", 
@@ -69,7 +69,7 @@ ugly_plot <- ggplot(data = space_dogs_summarized,
 ugly_plot
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 # Enregistrez le tracé au format PNG avec ggsave()
 ggsave("Graphique_moche.png")
 ```

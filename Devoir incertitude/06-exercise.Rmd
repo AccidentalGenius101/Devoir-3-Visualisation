@@ -24,14 +24,14 @@ library(gghalves)   # For half geoms
 
 Faites un histogramme du PIB *enregistré* par habitant pour 1997 uniquement, sur les cinq continents.
 
-```{r filter-gapminder-1997}
+```{r filter-gapminder-1997, warning=FALSE, message=FALSE}
 # Créer un jeu de données filtré
 data_gdp <- gapminder::gapminder
 data_1997 <- data_gdp %>% 
   filter(year == 1997)
 ```
 
-```{r plot-histogram}
+```{r plot-histogram, warning=FALSE, message=FALSE}
 # Ajoutez un histogramme ici. Vous voudrez probablement remplir et facetter.
 # Vous devrez également ajouter scale_x_log10()
 library(scales)
@@ -57,7 +57,7 @@ ggplot(data_1997, mapping = aes(gdpPercap, fill = continent)) +
 
 Faites un tracé de crête de l'espérance de vie au fil du temps, de 1952 à 2007. Vous devrez utiliser les données complètes de gapminder, et non les données de 1997 uniquement.
 
-```{r plot-ridgeplot}
+```{r plot-ridgeplot, warning=FALSE, message=FALSE}
 # Add a ridge plot here
 library(ggridges)
 ggplot(data_gdp, mapping = aes(lifeExp,
@@ -77,13 +77,13 @@ ggplot(data_gdp, mapping = aes(lifeExp,
 
 Créez un jeu de données filtré qui sélectionne uniquement les données de 2007 *et* supprime l'Océanie. Montrez la distribution du PIB *enregistré* par habitant sur les *quatre* continents en utilisant une combinaison de diagrammes en boîte et/ou de diagrammes en violon et/ou de diagrammes en bande, soit superposés les uns sur les autres, soit en utilisant leurs homologues `geom_half_*()` de **gghalves**.
 
-```{r filter-gapminder-2007-sans-oceania}
+```{r filter-gapminder-2007-sans-oceania, warning=FALSE, message=FALSE}
 # Create a filtered dataset
 data_2007 <- data_gdp %>% 
   filter(year == 2007 & continent != "Oceania")
 ```
 
-```{r plot-distribution}
+```{r plot-distribution, warning=FALSE, message=FALSE}
 # Add a plot here. You'll want to use either scale_x_log10() or scale_y_log10(),
 # depending on which direction your boxplots/violin plots/etc. go
 library(gghalves)
