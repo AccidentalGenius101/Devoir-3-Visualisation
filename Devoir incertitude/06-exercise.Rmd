@@ -109,3 +109,8 @@ ggplot(data_2007, mapping = aes(continent,
   theme(plot.title = element_text(hjust = 0.5, 
                                   face = "bold"))
 ```
+
+# Référence
+
+Nicosia, A. (2022). Incertitude [PowerPoint slides]. Moodle.
+https://moodle.uqac.ca/pluginfile.php/883741/mod_page/content/2/Incertitude.pdf
