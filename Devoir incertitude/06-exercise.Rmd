@@ -34,11 +34,21 @@ data_1997 <- data_gdp %>%
 ```{r plot-histogram}
 # Ajoutez un histogramme ici. Vous voudrez probablement remplir et facetter.
 # Vous devrez également ajouter scale_x_log10()
-ggplot(data_1997, mapping = aes(gdpPercap)) +
+library(scales)
+ggplot(data_1997, mapping = aes(gdpPercap, fill = continent)) +
   geom_histogram(color = "white", binwidth = 0.1, boundary = 1000) +
-  scale_x_log10() 
-  # facet_grid(cols = vars(continent)) +
-  # labs(title = "")
+  scale_x_log10(labels = label_dollar()) +
+  coord_cartesian(ylim = c(0, 8)) +
+  facet_grid(row = vars(continent)) +
+  labs(title = "Histogramme sur la répartition du pib par habitant en 1997 séparé par continent",
+       y = "Nombre de pays dans la boite",
+       x = "PIB par habitant",
+       fill = "Continents") +
+  theme_light() +
+  theme(strip.background = element_blank(),
+        strip.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.grid.major.y = element_line(color = "gray"))
 
 ```
 
@@ -49,6 +59,17 @@ Faites un tracé de crête de l'espérance de vie au fil du temps, de 1952 à 20
 
 ```{r plot-ridgeplot}
 # Add a ridge plot here
+library(ggridges)
+ggplot(data_gdp, mapping = aes(lifeExp,
+                               as.factor(year),
+                               fill = year)) +
+  geom_density_ridges() +
+  scale_fill_gradient(low = "#DE5A21", high = "#21DE5A") +
+  labs(title = "Graphique de densité multiple pour l'espérance de vie séparé par année",
+       x = "Espérance de vie (en année)",
+       y = "Année") +
+  theme_minimal() +
+  theme(panel.grid = element_blank())
 ```
 
 
@@ -58,9 +79,33 @@ Créez un jeu de données filtré qui sélectionne uniquement les données de 20
 
 ```{r filter-gapminder-2007-sans-oceania}
 # Create a filtered dataset
+data_2007 <- data_gdp %>% 
+  filter(year == 2007 & continent != "Oceania")
 ```
 
 ```{r plot-distribution}
 # Add a plot here. You'll want to use either scale_x_log10() or scale_y_log10(),
 # depending on which direction your boxplots/violin plots/etc. go
+library(gghalves)
+ggplot(data_2007, mapping = aes(continent, 
+                                gdpPercap, 
+                                color = continent)) +
+  geom_half_point(side = "l", 
+                  size = 0.3) +
+  geom_half_boxplot(side = "l", 
+                    width = 0.5, 
+                    alpha = 0.3, 
+                    nudge = 0.1) +
+  geom_half_violin(aes(fill = continent), 
+                   side = "r") +
+  scale_y_log10(labels = label_dollar()) +
+  coord_flip() +
+  labs(title = "Répartition du PIB par habitant selon le continent",
+       y = "PIB par habitant",
+       x = "Continent") +
+  guides(fill = "none", 
+         color = "none") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, 
+                                  face = "bold"))
 ```
